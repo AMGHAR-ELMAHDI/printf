@@ -27,8 +27,6 @@ void flags(va_list args, const char s, int *len)
 		_printf_adress(va_arg(args, void *), len);
 	else if (s == 'o')
 		_printf_octal(va_arg(args, int), len);
-	else if (s == 'b')
-		_printf_binary(va_arg(args, int), len);
 }
 
 /**
