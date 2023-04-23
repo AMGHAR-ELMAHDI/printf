@@ -18,5 +18,6 @@ void	_printf_unsigned_int(unsigned int n, int *len);
 void	_printf_hexa(unsigned int nbr, char Xx, int *len);
 void	_printf_adress(void *addr, int *len);
 void	_printf_octal(unsigned int nbr, int *len);
+void	_printf_binary(unsigned int num, int *len);
 
 #endif
