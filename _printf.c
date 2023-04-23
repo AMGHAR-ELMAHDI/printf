@@ -19,8 +19,6 @@ void flags(va_list args, const char s, int *len)
 		_printf_char((char)va_arg(args, int), len);
 	else if (s == 's')
 		_printf_string(va_arg(args, char *), len);
-	else if (s == 'S')
-		_printf_ascii(va_arg(args, char *), len);
 	else if (s == '%')
 		_printf_char(s, len);
 	else if (s == 'x' || s == 'X')
