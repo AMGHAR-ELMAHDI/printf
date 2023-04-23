@@ -25,6 +25,8 @@ void flags(va_list args, const char s, int *len)
 		_printf_hexa(va_arg(args, int), s, len);
 	else if (s == 'p')
 		_printf_adress(va_arg(args, void *), len);
+	else if (s == 'o')
+		_printf_octal(va_arg(args, int), len);
 }
 
 /**
