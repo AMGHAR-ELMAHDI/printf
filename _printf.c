@@ -8,29 +8,50 @@
  * @s: The format specifier character.
  * @len: A pointer to an integer variable that will store the length of the
  * output string.
+ *
+ * Return: 0 on success, -1 on error.
  */
-void flags(va_list args, const char s, int *len)
+int flags(va_list args, const char s, int *len)
 {
-	if (s == 'd' || s == 'i')
-		_printf_decimal(va_arg(args, int), len);
-	else if (s == 'u')
-		_printf_unsigned_int(va_arg(args, unsigned int), len);
-	else if (s == 'c')
-		_printf_char((char)va_arg(args, int), len);
-	else if (s == 's')
-		_printf_string(va_arg(args, char *), len);
-	else if (s == '%')
-		_printf_char(s, len);
-	else if (s == 'x' || s == 'X')
-		_printf_hexa(va_arg(args, int), s, len);
-	else if (s == 'p')
-		_printf_adress(va_arg(args, void *), len);
-	else if (s == 'o')
-		_printf_octal(va_arg(args, int), len);
-	else if (s == 'b')
-		_printf_binary(va_arg(args, int), len);
-	else
-		_printf_char(s, len);
+	int ret = 0;
+
+	switch (s)
+	{
+		case 'd':
+		case 'i':
+			_printf_decimal(va_arg(args, int), len);
+			break;
+		case 'u':
+			_printf_unsigned_int(va_arg(args, unsigned int), len);
+			break;
+		case 'c':
+			_printf_char((char) va_arg(args, int), len);
+			break;
+		case 's':
+			_printf_string(va_arg(args, char *), len);
+			break;
+		case '%':
+			_printf_char(s, len);
+			break;
+		case 'x':
+		case 'X':
+			_printf_hexa(va_arg(args, unsigned int), s, len);
+			break;
+		case 'p':
+			_printf_address(va_arg(args, void *), len);
+			break;
+		case 'o':
+			_printf_octal(va_arg(args, unsigned int), len);
+			break;
+		case 'b':
+			_printf_binary(va_arg(args, unsigned int), len);
+			break;
+		default:
+			_printf_char(s, len);
+			ret = -1;
+			break;
+	}
+	return (ret);
 }
 
 /**
@@ -38,28 +59,31 @@ void flags(va_list args, const char s, int *len)
  *
  * @format: The format string.
  *
- * Return: The number of characters printed.
+ * Return: The number of characters printed, or -1 on error.
  */
 int _printf(const char *format, ...)
 {
+	int len = 0;
 	va_list args;
-	int len;
 
-	len = 0;
+	if (format == NULL)
+		return (-1);
+
 	va_start(args, format);
-
 	while (*format)
 	{
 		if (*format == '%')
 		{
 			format++;
-			flags(args, *format, &len);
+			if (*format == '\0')
+				return (-1);
+		if (flags(args, *format, &len) == -1)
+			return (-1);
 		}
 		else
 			_printf_char(*format, &len);
 		format++;
 	}
-
 	va_end(args);
 	return (len);
 }
