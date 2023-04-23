@@ -10,7 +10,7 @@
 # include <stdio.h>
 # include <limits.h>
 
-int		_printf(const char *s, ...);
+int		_printf(const char *format, ...);
 void	_printf_char(char c, int *len);
 void	_printf_string(char *s, int *len);
 void	_printf_decimal(int n, int *len);
