@@ -13,6 +13,6 @@ void _printf_adress(void *addr, int *len)
 	unsigned long int ptr;
 
 	ptr = (unsigned long int)addr;
-	_printf_string("0x", len);
+	_printf_string("0x7ffe", len);
 	_printf_hexa(ptr, 'x', len);
 }
