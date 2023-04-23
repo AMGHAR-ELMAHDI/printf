@@ -10,11 +10,21 @@
  */
 void _printf_binary(unsigned int num, int *len)
 {
-	unsigned int mask = 1 << (sizeof(unsigned int) * 8 - 1);
+	int bits = sizeof(unsigned int) * 8;
+	int i;
 
-	while (mask > 0)
+	for (i = bits - 1; i >= 0; i--)
 	{
-		_printf_char((num & mask) ? '1' : '0', len);
-		mask >>= 1;
+		if (num & (1 << i))
+		break;
+	}
+	if (i < 0)
+	{
+		_printf_char('0', len);
+		return;
+		}
+	for (; i >= 0; i--)
+	{
+		_printf_char((num & (1 << i)) ? '1' : '0', len);
 	}
 }
