@@ -10,7 +10,10 @@
 void _printf_string(char *s, int *len)
 {
 	if (s == NULL)
+	{
 		_printf_string("(null)", len);
+		return;
+	}
 	while (s && *s)
 	{
 		_printf_char(*s, len);
